@@ -1,0 +1,5 @@
+hand_data.csv
+*.p
+__pycache__/
+sign_env/
+venv/
