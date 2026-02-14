@@ -27,7 +27,7 @@ const HomeScreen = ({ navigation }: any) => {
     { title: 'Live transcript', color: '#4CAF50', screen: 'Live' },
     { title: 'Upload Image', color: '#FFD166', screen: 'Upload' },
     { title: 'Record gesture', color: '#F77F00', screen: 'Record' },
-    { title: 'Learn gestures', color: '#9D4EDD', screen: 'Learn' },
+    { title: 'Learn gestures', color: '#9D4EDD', screen: 'LearnGestures' },
     { title: 'Upload window', color: '#06D6A0', screen: 'Window' },
   ];
 
@@ -58,10 +58,12 @@ const HomeScreen = ({ navigation }: any) => {
               key={index}
               activeOpacity={0.85}
               style={[styles.card, { backgroundColor: item.color }]}
-              onPress={() =>
+              onPress={() => {
                 item.screen === 'GestureScreen' &&
-                navigation.navigate('GestureScreen')
-              }
+                  navigation.navigate('GestureScreen');
+                item.screen === 'LearnGestures' &&
+                  navigation.navigate('LearnScreen');
+              }}
             >
               <View style={styles.cardOverlay} />
               <Text style={styles.cardText}>{item.title}</Text>

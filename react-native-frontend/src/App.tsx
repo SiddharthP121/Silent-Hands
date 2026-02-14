@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 // Import your custom screens
 import HomeScreen from './screens/HomeScreen';
 import GestureScreen from './screens/GestureScreen';
+import LearnGestures from './screens/LearnGestures';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ function App() {
 
           {/* Camera/Gesture Identification Screen */}
           <Stack.Screen name="GestureScreen" component={GestureScreen} />
+          <Stack.Screen name="LearnScreen" component={LearnGestures} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
