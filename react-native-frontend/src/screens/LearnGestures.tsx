@@ -8,14 +8,15 @@ import GestureDetails from './GestureDetails';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../constants/index.d';
-import { Gesture } from '../constants/index.d'
+import { Gesture } from '../constants/index.d';
 
-
-
-type LearnScreenNavigationProp = StackNavigationProp<RootStackParamList, "LearnGestures">
-
+type LearnScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LearnGestures'
+>;
 
 const LearnGestures = () => {
+  const navigation = useNavigation<LearnScreenNavigationProp>();
   const [gestures, setGestures] = useState<Gesture[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,10 +25,11 @@ const LearnGestures = () => {
   useEffect(() => {
     const getInitialData = async () => {
       const data = await getAllGestures();
+      // console.log(data)
       // Map data to match Gesture interface
       const mappedData: Gesture[] = (data as any[]).map(item => ({
         gesture_id: item.gesture_id || item.id || Math.random().toString(),
-        meaning: item.meaning || 'Unknown',
+        meaning: item.gesture_name || 'Unknown',
         description: item.description || '',
         image_url: item.image_url || item.imageUrl || '',
       }));
@@ -47,7 +49,6 @@ const LearnGestures = () => {
   };
 
   const renderItem = ({ item }: { item: Gesture }) => {
-    const navigation = useNavigation <LearnScreenNavigationProp>();
     return (
       <Pressable
         onPress={() => navigation.navigate('GestureDetails', { gesture: item })}

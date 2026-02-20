@@ -15,7 +15,6 @@ const { width } = Dimensions.get('window');
 const HomeScreen = ({ navigation }: any) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Theme colors
   const theme = {
     background: isDarkMode ? '#121212' : '#F8F9FA',
     text: isDarkMode ? '#FFFFFF' : '#1A1A1A',
@@ -62,7 +61,7 @@ const HomeScreen = ({ navigation }: any) => {
                 item.screen === 'GestureScreen' &&
                   navigation.navigate('GestureScreen');
                 item.screen === 'LearnGestures' &&
-                  navigation.navigate('LearnScreen');
+                  navigation.navigate('LearnGestures');
               }}
             >
               <View style={styles.cardOverlay} />
