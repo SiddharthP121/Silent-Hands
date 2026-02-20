@@ -1,15 +1,18 @@
-import 'react-native-gesture-handler'; // Required for navigation to work
+import 'react-native-gesture-handler'; 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-// Import your custom screens
 import HomeScreen from './screens/HomeScreen';
 import GestureScreen from './screens/GestureScreen';
 import LearnGestures from './screens/LearnGestures';
+import GestureDetails from './screens/GestureDetails';
+import { Gesture } from './constants/index.d';
+import { RootStackParamList } from './constants/index.d';
 
-const Stack = createStackNavigator();
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 function App() {
   return (
@@ -18,16 +21,14 @@ function App() {
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
-            headerShown: false, // Removes the basic header for a modern full-screen UI
-            cardStyle: { backgroundColor: '#F5F5F5' }, // Global background color
+            headerShown: false, 
+            cardStyle: { backgroundColor: '#F5F5F5' }, 
           }}
         >
-          {/* Main Menu Screen */}
           <Stack.Screen name="Home" component={HomeScreen} />
-
-          {/* Camera/Gesture Identification Screen */}
           <Stack.Screen name="GestureScreen" component={GestureScreen} />
-          <Stack.Screen name="LearnScreen" component={LearnGestures} />
+          <Stack.Screen name="GestureDetails" component={GestureDetails} />
+          <Stack.Screen name="LearnGestures" component={LearnGestures} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

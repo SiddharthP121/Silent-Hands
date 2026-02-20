@@ -10,7 +10,7 @@ import { Camera, CameraType } from 'react-native-camera-kit';
 import axios from 'axios';
 
 // --- CONFIGURATION ---
-const SERVER_IP = '172.26.106.100'; // Update only this line next time!
+const SERVER_IP = '10.82.1.100'; // Update only this line next time!
 const BASE_URL = `http://${SERVER_IP}:5000/predict`;
 
 const GestureScreen = ({ navigation }: any) => {
