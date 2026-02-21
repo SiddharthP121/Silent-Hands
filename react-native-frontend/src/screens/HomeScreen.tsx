@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation }: any) => {
   const menuItems = [
     { title: 'Identify gesture', color: '#00B4D8', screen: 'GestureScreen' },
     { title: 'Live transcript', color: '#4CAF50', screen: 'Live' },
-    { title: 'Upload Image', color: '#FFD166', screen: 'Upload' },
+    { title: 'Upload Image', color: '#FFD166', screen: 'TranscribeByImage' },
     { title: 'Record gesture', color: '#F77F00', screen: 'Record' },
     { title: 'Learn gestures', color: '#9D4EDD', screen: 'LearnGestures' },
     { title: 'Upload window', color: '#06D6A0', screen: 'Window' },
@@ -62,6 +62,8 @@ const HomeScreen = ({ navigation }: any) => {
                   navigation.navigate('GestureScreen');
                 item.screen === 'LearnGestures' &&
                   navigation.navigate('LearnGestures');
+                item.screen === 'TranscribeByImage' &&
+                  navigation.navigate('TranscribeByImage');
               }}
             >
               <View style={styles.cardOverlay} />

@@ -11,4 +11,5 @@ export type RootStackParamList = {
   GestureDetails: {gesture: Gesture};
   GestureScreen: undefined;
   LearnGestures: undefined;
+  TranscribeByImage: undefined;
 }
