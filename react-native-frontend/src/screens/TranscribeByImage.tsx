@@ -19,6 +19,9 @@ import { RootStackParamList } from '../constants/index.d';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { BASE_URL } from '../constants/index.d';
+import axios from 'axios';
+
 type TranscribeByImageNavigationalProps = StackNavigationProp<
   RootStackParamList,
   'TranscribeByImage'
@@ -73,6 +76,25 @@ const TranscribeByImage = () => {
     });
   };
 
+  const handleTranscribe = async () => {
+    const formData = new FormData();
+    const imageUri = image?.[0].uri;
+    formData.append('image', {
+      uri: imageUri,
+      type: 'image/jepg',
+      name: 'user_gesture.jpg',
+    });
+    try {
+      const response = await axios.post(BASE_URL, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const data = await response.data;
+      console.log(data);
+    } catch (error) {
+      console.log('Facing error in handleTranscribe() ::', error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -100,6 +122,7 @@ const TranscribeByImage = () => {
           />
           <TouchableOpacity
             style={[styles.card, { backgroundColor: '#74be46', margin: 20 }]}
+            onPress={()=>handleTranscribe()}
           >
             <Text style={styles.cardText}>Transcribe</Text>
           </TouchableOpacity>

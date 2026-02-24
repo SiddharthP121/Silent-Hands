@@ -7,11 +7,9 @@ import {
   Platform,
 } from 'react-native';
 import { Camera, CameraType } from 'react-native-camera-kit';
+import {BASE_URL} from '../constants/index.d';
 import axios from 'axios';
 
-// --- CONFIGURATION ---
-const SERVER_IP = '10.82.1.100'; // Update only this line next time!
-const BASE_URL = `http://${SERVER_IP}:5000/predict`;
 
 const GestureScreen = ({ navigation }: any) => {
   const [prediction, setPrediction] = useState<string>('Initializing AI...');
