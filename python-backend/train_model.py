@@ -5,8 +5,7 @@ from sklearn.metrics import accuracy_score
 import pickle
 
 # 1. Load data
-column_names = [f'coord_{i}' for i in range(63)] + ['label']
-data = pd.read_csv('hand_data.csv', header=None, names=column_names)
+data = pd.read_csv('hand_data.csv', header=0)
 
 # 2. Features and Labels
 X = data.drop('label', axis=1)
