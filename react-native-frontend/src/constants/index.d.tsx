@@ -2,6 +2,7 @@ export interface Gesture {
   gesture_id: string;
   meaning: string;
   description: string;
+  category?: string;
   image_url: string;
   isLearned?: boolean
 }
@@ -15,5 +16,5 @@ export type RootStackParamList = {
 }
 
 // --- CONFIGURATION ---
-const SERVER_IP = '172.17.114.100'; // Update only this line next time!
+const SERVER_IP = '10.73.82.100'; // Update only this line next time!
 export const BASE_URL = `http://${SERVER_IP}:5000/predict`;

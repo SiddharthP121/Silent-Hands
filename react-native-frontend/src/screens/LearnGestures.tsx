@@ -25,13 +25,14 @@ const LearnGestures = () => {
   useEffect(() => {
     const getInitialData = async () => {
       const data = await getAllGestures();
-      // console.log(data)
+      console.log(data)
       // Map data to match Gesture interface
       const mappedData: Gesture[] = (data as any[]).map(item => ({
         gesture_id: item.gesture_id || item.id || Math.random().toString(),
         meaning: item.gesture_name || 'Unknown',
         description: item.description || '',
         image_url: item.image_url || item.imageUrl || '',
+        category: item.category
       }));
       setGestures(mappedData);
       setFilteredData(mappedData);

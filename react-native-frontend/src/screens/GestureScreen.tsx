@@ -35,7 +35,6 @@ const GestureScreen = ({ navigation }: any) => {
       if (frame && frame.uri) {
         const formData = new FormData();
 
-        // Creating the file object properly for Axios
         const photo = {
           uri:
             Platform.OS === 'android'
