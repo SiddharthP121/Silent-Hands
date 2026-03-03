@@ -2,6 +2,7 @@ import pickle
 import cv2
 import mediapipe as mp
 import numpy as np
+from gesture_dict import phrase_map
 
 # 1. Load the "Brain" and the "Eyes" (model now contains scaler and label encoder)
 # load the latest trained model file (train_model.py produces model.p)
@@ -12,28 +13,13 @@ label_enc = model_pkg.get('label_encoder', None)
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=False, min_detection_confidence=0.7)
 
-# define the human-readable gestures you expect the numbers to represent
-# this stays static and isn't affected by what label_encoder learned
-phrase_map = {
-    '0': 'Hello, Goodbye',
-    '1': 'Thumbs Up, Good',
-    '2': 'Thumbs Down, Bad',
-    '3': 'I love you',
-    '4': 'Who',
-    '5': 'Where',
-    '6': 'Yes',
-    '7': 'No',
-    '8': 'Wait, Hold, Speak'
-}
 
-# if the encoder is present we still create a labels_dict from it; it may
-# simply mirror the numeric labels, but we keep it for completeness.
 if label_enc is not None:
     labels_dict = {i: label for i, label in enumerate(label_enc.classes_)}
 else:
     labels_dict = phrase_map.copy()
 
-cap = cv2.VideoCapture(0) # Change to 1 or 2 if using DroidCam
+cap = cv2.VideoCapture(0)
 
 while True:
     ret, frame = cap.read()
@@ -64,8 +50,6 @@ while True:
             max_val = max(abs(v) for v in normalized) or 1
             normalized = [v / max_val for v in normalized]
 
-            # 3. Ask the AI to guess
-            # wrap features in DataFrame to keep column names for scaler
             try:
                 import pandas as pd
                 inp = pd.DataFrame([normalized])
