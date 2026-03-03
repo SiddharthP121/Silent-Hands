@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import csv
+import os
 
 # Initialize MediaPipe
 mp_hands = mp.solutions.hands
@@ -9,9 +10,10 @@ hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_c
 # Prepare CSV file
 # We have 21 landmarks, each has x, y, z (21 * 3 = 63 values) + 1 for the Label
 header = [f'coord_{i}' for i in range(63)] + ['label']
-with open('hand_data.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(header)
+if not os.path.exists('hand_data.csv'):
+    with open('hand_data.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
 
 cap = cv2.VideoCapture(0)
 print("Press '0'-'9' to save data for that class, or 'q' to quit.")
@@ -29,18 +31,31 @@ while cap.isOpened():
             # Draw landmarks so you can see what you're doing
             mp.solutions.drawing_utils.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
             
-            # Extract coordinates
+            # Extract raw coordinates
             landmarks = []
             for lm in hand_landmarks.landmark:
                 landmarks.extend([lm.x, lm.y, lm.z])
-                
-            # Check for key presses to save data
+
+            # normalize coordinates relative to the wrist (landmark 0)
+            wrist_x, wrist_y, wrist_z = landmarks[0], landmarks[1], landmarks[2]
+            normalized = []
+            for i in range(0, len(landmarks), 3):
+                normalized.extend([
+                    landmarks[i] - wrist_x,
+                    landmarks[i + 1] - wrist_y,
+                    landmarks[i + 2] - wrist_z,
+                ])
+            # scale so the values sit roughly between -1 and 1
+            max_val = max(abs(v) for v in normalized) or 1
+            normalized = [v / max_val for v in normalized]
+
+            # Check for key presses to save data (use normalized features)
             key = cv2.waitKey(1) & 0xFF
             if ord('0') <= key <= ord('9'):
                 label = chr(key)
                 with open('hand_data.csv', 'a', newline='') as f:
                     writer = csv.writer(f)
-                    writer.writerow(landmarks + [label])
+                    writer.writerow(normalized + [label])
                 print(f"Saved data for Label: {label}")
             elif key == ord('q'):
                 cap.release()
