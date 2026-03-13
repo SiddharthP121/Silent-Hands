@@ -12,6 +12,8 @@ import { Gesture } from './constants/index.d';
 import { RootStackParamList } from './constants/index.d';
 import SplashScreen from './screens/SplashScreen';
 import TranscribeByImage from './screens/TranscribeByImage';
+import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -42,6 +44,8 @@ function App() {
           <Stack.Screen name="GestureDetails" component={GestureDetails} />
           <Stack.Screen name="LearnGestures" component={LearnGestures} />
           <Stack.Screen name="TranscribeByImage" component={TranscribeByImage} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

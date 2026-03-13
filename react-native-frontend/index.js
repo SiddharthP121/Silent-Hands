@@ -1,5 +1,3 @@
-// index.js
-
 // 1. Security
 import 'react-native-get-random-values';
 

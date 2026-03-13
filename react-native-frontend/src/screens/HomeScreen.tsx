@@ -64,6 +64,8 @@ const HomeScreen = ({ navigation }: any) => {
                   navigation.navigate('LearnGestures');
                 item.screen === 'TranscribeByImage' &&
                   navigation.navigate('TranscribeByImage');
+                item.screen === 'Window' &&
+                  navigation.navigate('RegisterScreen');
               }}
             >
               <View style={styles.cardOverlay} />
